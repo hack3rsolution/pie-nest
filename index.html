@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pie Nest — Where Korean Wisdom Meets the World</title>
+  <meta name="description" content="AI-powered apps that bring Korean culture and wisdom to the global stage. K-Saju Global, Dalnara, and WriteMyDay.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+
+  <!-- OG Meta -->
+  <meta property="og:title" content="Pie Nest — Where Korean Wisdom Meets the World">
+  <meta property="og:description" content="AI-powered apps that bring Korean culture and wisdom to the global stage.">
+  <meta property="og:url" content="https://pie-nest.com">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://pie-nest.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pie Nest — Where Korean Wisdom Meets the World">
+  <meta name="twitter:description" content="AI-powered apps that bring Korean culture and wisdom to the global stage.">
+
+  <style>
+    /* ── Reset & Variables ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #fafaf9;
+      --off-white: #f5f4f0;
+      --warm-gray: #e8e6e1;
+      --mid-gray: #9c9a94;
+      --dark-gray: #3a3935;
+      --teal: #2a9d8f;
+      --teal-deep: #1a7a6e;
+      --teal-light: #5ec4b6;
+      --teal-glow: rgba(42, 157, 143, 0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--black);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Instrument Serif', serif; font-weight: 400; }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Reveal Animation ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── A. Navigation ── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(250, 250, 249, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--warm-gray);
+    }
+    .nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      color: var(--black);
+    }
+    .nav-logo svg { width: 32px; height: 32px; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      color: var(--dark-gray);
+      transition: color 0.2s;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta {
+      background: var(--black);
+      color: var(--white) !important;
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-size: 0.85rem !important;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--dark-gray); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      z-index: 110;
+    }
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--black);
+      transition: transform 0.3s, opacity 0.3s;
+      display: block;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Mobile overlay */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--white);
+      z-index: 105;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2rem;
+      color: var(--black);
+    }
+    .mobile-menu a:hover { color: var(--teal); }
+
+    /* ── B. Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-1, .hero-bg-2 {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .hero-bg-1 {
+      width: 600px;
+      height: 600px;
+      background: var(--teal-glow);
+      top: -100px;
+      right: -150px;
+      animation: float1 8s ease-in-out infinite;
+    }
+    .hero-bg-2 {
+      width: 500px;
+      height: 500px;
+      background: rgba(42, 157, 143, 0.08);
+      bottom: -80px;
+      left: -120px;
+      animation: float2 10s ease-in-out infinite;
+    }
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-30px, 20px); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20px, -30px); }
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--teal-glow);
+      color: var(--teal-deep);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 32px;
+      border: 1px solid rgba(42, 157, 143, 0.2);
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.7s ease forwards 0.2s;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      line-height: 1.15;
+      margin-bottom: 24px;
+      color: var(--black);
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.7s ease forwards 0.4s;
+    }
+    .hero h1 em {
+      color: var(--teal);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--dark-gray);
+      max-width: 620px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.7s ease forwards 0.6s;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.7s ease forwards 0.8s;
+    }
+    .btn-primary {
+      background: var(--black);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--dark-gray); }
+    .btn-outline {
+      background: transparent;
+      color: var(--black);
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: 1.5px solid var(--warm-gray);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      color: var(--mid-gray);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: var(--teal);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ── C. Philosophy ── */
+    .philosophy {
+      background: var(--off-white);
+      padding: 120px 24px;
+    }
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .philosophy-illustration {
+      display: flex;
+      justify-content: center;
+    }
+    .philosophy-illustration svg { width: 100%; max-width: 320px; }
+
+    .philosophy-quote {
+      border-left: 3px solid var(--teal);
+      padding-left: 24px;
+      margin-bottom: 32px;
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--dark-gray);
+      line-height: 1.6;
+    }
+    .philosophy-text p {
+      color: var(--dark-gray);
+      margin-bottom: 20px;
+      font-size: 1.02rem;
+      line-height: 1.8;
+    }
+
+    .values-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 1100px;
+      margin: 72px auto 0;
+    }
+    .value-item { text-align: center; }
+    .value-item h4 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: var(--teal);
+    }
+    .value-item p {
+      font-size: 0.92rem;
+      color: var(--mid-gray);
+    }
+
+    /* ── D. Products ── */
+    .products { padding: 120px 24px; }
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 64px;
+    }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 16px;
+    }
+    .section-header p {
+      color: var(--dark-gray);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .product-card {
+      background: var(--white);
+      border: 1px solid var(--warm-gray);
+      border-radius: 16px;
+      padding: 36px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--teal);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+    }
+    .product-card:hover::before { transform: scaleX(1); }
+
+    .product-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .product-icon svg { width: 28px; height: 28px; }
+
+    .product-status {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .status-live { background: var(--teal-glow); color: var(--teal-deep); }
+    .status-dev { background: rgba(196, 154, 60, 0.12); color: #8e6e22; }
+
+    .product-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+    .product-tagline {
+      font-size: 0.95rem;
+      color: var(--teal);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .product-desc {
+      font-size: 0.92rem;
+      color: var(--dark-gray);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .product-link {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--teal);
+      transition: color 0.2s;
+    }
+    .product-link:hover { color: var(--teal-deep); }
+    .product-link-disabled {
+      font-size: 0.9rem;
+      color: var(--mid-gray);
+      font-weight: 500;
+    }
+
+    /* ── E. Approach (Dark) ── */
+    .approach {
+      background: var(--black);
+      color: var(--white);
+      padding: 120px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .approach-glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(42,157,143,0.15), transparent 70%);
+      top: -100px;
+      right: -100px;
+      pointer-events: none;
+    }
+    .approach .section-header { position: relative; z-index: 1; }
+    .approach .section-header p { color: var(--mid-gray); }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .approach-item {
+      border-top: 2px solid var(--teal);
+      padding-top: 28px;
+    }
+    .approach-item h3 {
+      font-size: 1.35rem;
+      margin-bottom: 16px;
+      color: var(--white);
+    }
+    .approach-item p {
+      font-size: 0.92rem;
+      color: var(--mid-gray);
+      line-height: 1.8;
+    }
+
+    /* ── F. Insights ── */
+    .insights { padding: 120px 24px; }
+    .insights-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      max-width: 1100px;
+      margin: 0 auto 48px;
+    }
+    .insights-header h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+    }
+    .insights-header p {
+      color: var(--dark-gray);
+      font-size: 1.02rem;
+      max-width: 480px;
+      margin-top: 8px;
+    }
+    .btn-view-all {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--teal);
+      border: 1.5px solid var(--teal);
+      padding: 10px 24px;
+      border-radius: 100px;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .btn-view-all:hover {
+      background: var(--teal);
+      color: var(--white);
+    }
+
+    .insights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .insight-card {
+      padding: 32px 28px;
+      border: 1px solid var(--warm-gray);
+      border-radius: 14px;
+      transition: border-color 0.3s, background 0.3s;
+      cursor: pointer;
+    }
+    .insight-card:hover {
+      border-color: var(--teal);
+      background: var(--teal-glow);
+    }
+    .insight-meta {
+      font-size: 0.8rem;
+      color: var(--mid-gray);
+      margin-bottom: 12px;
+      display: flex;
+      gap: 12px;
+    }
+    .insight-meta .tag {
+      color: var(--teal);
+      font-weight: 600;
+    }
+    .insight-card h3 {
+      font-size: 1.25rem;
+      line-height: 1.4;
+    }
+
+    /* ── G. CTA ── */
+    .cta-section {
+      background: var(--off-white);
+      padding: 100px 24px;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 40px;
+    }
+    .store-badges {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--black);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .store-badge:hover { background: var(--dark-gray); }
+    .store-badge svg { width: 24px; height: 24px; fill: var(--white); }
+    .store-badge-disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .store-badge-small {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 400;
+      opacity: 0.7;
+    }
+
+    /* ── H. Footer ── */
+    .footer {
+      background: var(--black);
+      color: var(--white);
+      padding: 80px 24px 40px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      max-width: 1100px;
+      margin: 0 auto 60px;
+    }
+    .footer-brand p {
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-top: 16px;
+      max-width: 280px;
+    }
+    .footer-col h4 {
+      font-size: 0.85rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--mid-gray);
+      margin-bottom: 20px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 0.92rem;
+      color: var(--warm-gray);
+      margin-bottom: 12px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--teal); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-bottom p {
+      font-size: 0.82rem;
+      color: var(--mid-gray);
+    }
+    .social-links {
+      display: flex;
+      gap: 16px;
+    }
+    .social-links a {
+      color: var(--mid-gray);
+      transition: color 0.2s;
+    }
+    .social-links a:hover { color: var(--teal); }
+    .social-links svg { width: 20px; height: 20px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .philosophy-grid { grid-template-columns: 1fr; gap: 40px; }
+      .philosophy-illustration { order: -1; }
+      .product-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .approach-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .values-row { grid-template-columns: 1fr; gap: 24px; max-width: 360px; margin: 48px auto 0; }
+      .insights-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .insights-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero { padding: 100px 20px 60px; }
+      .hero h1 { font-size: 2rem; }
+      .philosophy, .products, .approach, .insights { padding: 80px 20px; }
+      .cta-section { padding: 64px 20px; }
+      .store-badges { flex-direction: column; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── A. Navigation ── -->
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="#" class="nav-logo">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="15" fill="#0a0a0a" stroke="#2a9d8f" stroke-width="1"/>
+          <ellipse cx="16" cy="15" rx="7" ry="6" fill="#1a1a1a"/>
+          <ellipse cx="16" cy="17" rx="4" ry="3.5" fill="#fafaf9"/>
+          <circle cx="16" cy="10" r="4.5" fill="#1a1a1a"/>
+          <polygon points="20,10 23,9.5 20,9" fill="#9c9a94"/>
+          <circle cx="18" cy="9.5" r="1.2" fill="#2a9d8f"/>
+          <circle cx="18.3" cy="9.2" r="0.4" fill="#fafaf9"/>
+          <polygon points="9,16 5,22 10,19" fill="#1a1a1a"/>
+          <polygon points="9.5,17 6,22.5 10.5,19.5" fill="#2a9d8f" opacity="0.6"/>
+          <ellipse cx="14" cy="14" rx="4" ry="3" fill="#2a2a2a" transform="rotate(-10 14 14)"/>
+        </svg>
+        Pie Nest
+      </a>
+      <div class="nav-links">
+        <a href="#story">Story</a>
+        <a href="#products">Products</a>
+        <a href="#approach">Approach</a>
+        <a href="#insights">Insights</a>
+        <a href="#products" class="nav-cta">Get the App</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#story" onclick="closeMobile()">Story</a>
+    <a href="#products" onclick="closeMobile()">Products</a>
+    <a href="#approach" onclick="closeMobile()">Approach</a>
+    <a href="#insights" onclick="closeMobile()">Insights</a>
+    <a href="#products" onclick="closeMobile()" style="color: var(--teal);">Get the App</a>
+  </div>
+
+  <!-- ── B. Hero Section ── -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-1"></div>
+    <div class="hero-bg-2"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Seoul, Korea &rarr; Everywhere</div>
+      <h1>Building bridges between <em>Korean wisdom</em> and the world</h1>
+      <p class="hero-sub">Pie Nest creates AI-powered experiences that make Korean culture accessible, meaningful, and deeply personal &mdash; wherever you are.</p>
+      <div class="hero-ctas">
+        <a href="#products" class="btn-primary">Explore Our Apps</a>
+        <a href="#story" class="btn-outline">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ── C. Philosophy / Our Story ── -->
+  <section class="philosophy" id="story">
+    <div class="philosophy-grid">
+      <div class="philosophy-illustration reveal">
+        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- Decorative circles -->
+          <circle cx="50" cy="60" r="12" fill="#2a9d8f" opacity="0.15"/>
+          <circle cx="280" cy="80" r="8" fill="#2a9d8f" opacity="0.2"/>
+          <circle cx="260" cy="250" r="18" fill="#2a9d8f" opacity="0.1"/>
+          <circle cx="40" cy="240" r="6" fill="#2a9d8f" opacity="0.25"/>
+          <circle cx="160" cy="40" r="10" fill="#2a9d8f" opacity="0.12"/>
+
+          <!-- Nest -->
+          <ellipse cx="160" cy="250" rx="80" ry="25" fill="#3a3935"/>
+          <ellipse cx="160" cy="248" rx="75" ry="22" fill="none" stroke="#9c9a94" stroke-width="1.5" stroke-dasharray="6 4"/>
+          <path d="M90 245 C100 220, 120 210, 160 208 C200 210, 220 220, 230 245" fill="none" stroke="#3a3935" stroke-width="3"/>
+          <!-- Nest twigs -->
+          <line x1="95" y1="242" x2="115" y2="235" stroke="#9c9a94" stroke-width="1.5"/>
+          <line x1="205" y1="235" x2="225" y2="242" stroke="#9c9a94" stroke-width="1.5"/>
+          <line x1="130" y1="232" x2="145" y2="228" stroke="#9c9a94" stroke-width="1"/>
+          <line x1="175" y1="228" x2="190" y2="232" stroke="#9c9a94" stroke-width="1"/>
+
+          <!-- Magpie body -->
+          <ellipse cx="160" cy="185" rx="38" ry="45" fill="#0a0a0a"/>
+          <!-- White belly -->
+          <ellipse cx="160" cy="200" rx="22" ry="25" fill="#fafaf9"/>
+          <!-- Head -->
+          <circle cx="160" cy="130" r="26" fill="#0a0a0a"/>
+          <!-- Beak -->
+          <polygon points="182,126 198,122 182,120" fill="#9c9a94"/>
+          <!-- Eye -->
+          <circle cx="174" cy="125" r="6" fill="#2a9d8f"/>
+          <circle cx="176" cy="123" r="2" fill="#fafaf9"/>
+          <!-- Wing left -->
+          <ellipse cx="132" cy="175" rx="22" ry="30" fill="#1a1a1a" transform="rotate(-15 132 175)"/>
+          <!-- Wing right -->
+          <ellipse cx="188" cy="175" rx="22" ry="30" fill="#1a1a1a" transform="rotate(15 188 175)"/>
+          <!-- Tail -->
+          <polygon points="140,220 115,280 155,240" fill="#0a0a0a"/>
+          <polygon points="143,222 120,278 156,242" fill="#2a9d8f" opacity="0.5"/>
+          <!-- Tail tip teal -->
+          <polygon points="118,270 110,290 130,278" fill="#2a9d8f" opacity="0.7"/>
+          <!-- Feet -->
+          <line x1="148" y1="235" x2="145" y2="248" stroke="#3a3935" stroke-width="2"/>
+          <line x1="172" y1="235" x2="175" y2="248" stroke="#3a3935" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="philosophy-text reveal" style="transition-delay: 0.15s;">
+        <blockquote class="philosophy-quote">
+          &ldquo;The magpie builds its nest everywhere &mdash; yet never forgets where it comes from.&rdquo;
+        </blockquote>
+        <p>&ldquo;Pie Nest&rdquo; is named after the magpie &mdash; a bird that symbolizes good fortune in Korean folklore, yet thrives on every continent. It&rsquo;s a fitting metaphor for what we do.</p>
+        <p>We believe Korean culture holds wisdom worth sharing: ancient frameworks for understanding ourselves, a language shaped by centuries of philosophy, and daily practices that bring clarity to modern life. Our apps are the bridges.</p>
+      </div>
+    </div>
+
+    <div class="values-row">
+      <div class="value-item reveal">
+        <h4>Rooted</h4>
+        <p>Korean heritage, authentic depth</p>
+      </div>
+      <div class="value-item reveal" style="transition-delay: 0.1s;">
+        <h4>Global</h4>
+        <p>Built for every culture</p>
+      </div>
+      <div class="value-item reveal" style="transition-delay: 0.2s;">
+        <h4>Personal</h4>
+        <p>AI that truly understands you</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── D. Products ── -->
+  <section class="products" id="products">
+    <div class="section-header reveal">
+      <h2>Three apps, one mission</h2>
+      <p>Each app opens a different door into Korean culture &mdash; fortune, language, and the art of daily reflection.</p>
+    </div>
+
+    <div class="product-grid">
+      <!-- K-Saju Global -->
+      <div class="product-card reveal">
+        <div class="product-icon" style="background: linear-gradient(135deg, #6b5ce7, #2d5a82);">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="14" cy="14" r="10" stroke="#e5be6a" stroke-width="2"/>
+            <line x1="14" y1="4" x2="14" y2="24" stroke="#e5be6a" stroke-width="1.5"/>
+            <line x1="4" y1="14" x2="24" y2="14" stroke="#e5be6a" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <span class="product-status status-live">Live on App Store</span>
+        <h3>K-Saju Global</h3>
+        <p class="product-tagline">Your destiny, decoded through Korean astrology</p>
+        <p class="product-desc">An AI-powered Saju (Four Pillars) reading app that transforms centuries-old Korean fortune-telling into deeply personal daily guidance &mdash; available in 8 languages.</p>
+        <a href="https://k-saju.app" class="product-link" target="_blank" rel="noopener">Visit k-saju.app &rarr;</a>
+      </div>
+
+      <!-- Dalnara -->
+      <div class="product-card reveal" style="transition-delay: 0.1s;">
+        <div class="product-icon" style="background: linear-gradient(135deg, #5a9944, #2a9d8f);">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 18 C8 8, 14 22, 18 10 C20 6, 24 16, 26 12" stroke="#fafaf9" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M2 20 C6 12, 12 24, 16 14 C20 8, 22 18, 26 14" stroke="#fafaf9" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+          </svg>
+        </div>
+        <span class="product-status status-dev">In Development</span>
+        <h3>Dalnara</h3>
+        <p class="product-tagline">Learn Korean through culture, not just textbooks</p>
+        <p class="product-desc">A language learning app that weaves Korean culture into every lesson &mdash; with AI-powered pronunciation coaching personalized to your native language&rsquo;s unique challenges.</p>
+        <span class="product-link-disabled">Coming soon</span>
+      </div>
+
+      <!-- WriteMyDay -->
+      <div class="product-card reveal" style="transition-delay: 0.2s;">
+        <div class="product-icon" style="background: linear-gradient(135deg, #8a7050, #c49a3c);">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="3" width="18" height="22" rx="2" stroke="#fafaf9" stroke-width="1.5"/>
+            <line x1="9" y1="9" x2="19" y2="9" stroke="#fafaf9" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="9" y1="13" x2="17" y2="13" stroke="#fafaf9" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="9" y1="17" x2="15" y2="17" stroke="#fafaf9" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="product-status status-dev">In Development</span>
+        <h3>WriteMyDay</h3>
+        <p class="product-tagline">Your AI writing coach, inspired by daily life</p>
+        <p class="product-desc">A Duolingo-style writing coach that helps you build a daily writing habit. Start with a simple prompt about your day, and grow into a confident, expressive writer.</p>
+        <span class="product-link-disabled">Coming soon</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── E. Our Approach ── -->
+  <section class="approach" id="approach">
+    <div class="approach-glow"></div>
+    <div class="section-header reveal">
+      <h2 style="color: var(--white);">How we build</h2>
+      <p>Three principles that guide everything we create.</p>
+    </div>
+
+    <div class="approach-grid">
+      <div class="approach-item reveal">
+        <h3>Culture first, technology second</h3>
+        <p>We start with deep cultural research &mdash; consulting practitioners, reading original texts, and understanding the &lsquo;why&rsquo; behind traditions &mdash; before writing a single line of code.</p>
+      </div>
+      <div class="approach-item reveal" style="transition-delay: 0.1s;">
+        <h3>AI as a translator, not a replacement</h3>
+        <p>Our AI doesn&rsquo;t invent wisdom. It translates centuries of cultural knowledge into language and insights that feel relevant to your life today, in your language, in your context.</p>
+      </div>
+      <div class="approach-item reveal" style="transition-delay: 0.2s;">
+        <h3>Ship fast, listen faster</h3>
+        <p>We believe in rapid iteration driven by real user feedback. Every feature we build is shaped by people who actually use our apps, not assumptions made in a vacuum.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── F. Insights ── -->
+  <section class="insights" id="insights">
+    <div class="insights-header">
+      <div>
+        <h2>From the nest</h2>
+        <p>Thoughts on building at the intersection of culture, AI, and product.</p>
+      </div>
+      <a href="#" class="btn-view-all">View all</a>
+    </div>
+
+    <div class="insights-grid">
+      <div class="insight-card reveal">
+        <div class="insight-meta">
+          <span class="tag">Culture &times; Tech</span>
+          <span>Mar 2026</span>
+        </div>
+        <h3>Why Korean fortune-telling resonates globally</h3>
+      </div>
+      <div class="insight-card reveal" style="transition-delay: 0.1s;">
+        <div class="insight-meta">
+          <span class="tag">Product</span>
+          <span>Mar 2026</span>
+        </div>
+        <h3>Building multilingual AI apps that actually feel natural</h3>
+      </div>
+      <div class="insight-card reveal" style="transition-delay: 0.15s;">
+        <div class="insight-meta">
+          <span class="tag">Language</span>
+          <span>Coming soon</span>
+        </div>
+        <h3>The sounds your tongue can&rsquo;t make (yet)</h3>
+      </div>
+      <div class="insight-card reveal" style="transition-delay: 0.2s;">
+        <div class="insight-meta">
+          <span class="tag">Writing</span>
+          <span>Coming soon</span>
+        </div>
+        <h3>Why journaling apps fail &mdash; and what writing coaches get right</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── G. CTA Section ── -->
+  <section class="cta-section">
+    <div class="container reveal">
+      <h2>Discover what Korean wisdom can offer you</h2>
+      <div class="store-badges">
+        <a href="https://apps.apple.com/app/k-saju-global/id6742307953" class="store-badge" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          <div>
+            <span class="store-badge-small">Download on the</span>
+            App Store
+          </div>
+        </a>
+        <div class="store-badge store-badge-disabled">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3.18 23.76c.17.09.37.12.56.06l10.68-3.78L3.18 10.35v13.41zM20.45 11.15L17.16 9.28 6.05 3.17 16.27 13.77l4.18-2.62zM2.62 2.14c-.2.29-.32.66-.32 1.09v17.54l12.26-10.39L2.62 2.14zM21.17 12.12l-3.55 2.22L5.97 23.53l12.18-4.31 3.02-1.7c.77-.43 1.04-1.09.69-1.65-.17-.28-.41-.5-.69-.75z"/>
+          </svg>
+          <div>
+            <span class="store-badge-small">Coming to</span>
+            Google Play
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── H. Footer ── -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="color: var(--white);">
+          <svg viewBox="0 0 32 32" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="15" fill="#0a0a0a" stroke="#2a9d8f" stroke-width="1"/>
+            <ellipse cx="16" cy="15" rx="7" ry="6" fill="#1a1a1a"/>
+            <ellipse cx="16" cy="17" rx="4" ry="3.5" fill="#fafaf9"/>
+            <circle cx="16" cy="10" r="4.5" fill="#1a1a1a"/>
+            <polygon points="20,10 23,9.5 20,9" fill="#9c9a94"/>
+            <circle cx="18" cy="9.5" r="1.2" fill="#2a9d8f"/>
+            <circle cx="18.3" cy="9.2" r="0.4" fill="#fafaf9"/>
+            <polygon points="9,16 5,22 10,19" fill="#1a1a1a"/>
+            <polygon points="9.5,17 6,22.5 10.5,19.5" fill="#2a9d8f" opacity="0.6"/>
+          </svg>
+          Pie Nest
+        </a>
+        <p>AI-powered apps that bring Korean culture and wisdom to the global stage.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="https://k-saju.app" target="_blank" rel="noopener">K-Saju Global</a>
+        <a href="#">Dalnara</a>
+        <a href="#">WriteMyDay</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#story">Our Story</a>
+        <a href="#insights">Insights</a>
+        <a href="mailto:support@k-saju.app">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="https://k-saju.app/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>
+        <a href="https://k-saju.app/terms.html" target="_blank" rel="noopener">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Pie Nest Inc.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Twitter/X">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── JavaScript ── -->
+  <script>
+    // 1. Nav scroll detection
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // 2. Mobile hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    function closeMobile() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // 3. IntersectionObserver for reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealElements.forEach((el) => observer.observe(el));
+
+    // 4. Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', (e) => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
